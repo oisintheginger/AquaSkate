@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerMotion : MonoBehaviour
 {
     [SerializeField] string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
-
+    [SerializeField] Image accelerometerBar;
 
     Rigidbody pRB;
     [SerializeField] Vector3 appliedForce;
@@ -30,7 +31,7 @@ public class playerMotion : MonoBehaviour
     void FixedUpdate()
     {
         GroundCheck();
-        SlopeCheck();
+        //SlopeCheck();
         groundCheckRay = new Ray(groundTransform.position, -transform.up);
         rampRay = new Ray(slopeTransform.position, transform.forward);
         
@@ -38,10 +39,10 @@ public class playerMotion : MonoBehaviour
 
         
     }
-
-    Vector3 CalculateForce()
+    
+    void ScaleAccelerometer(float currentVelocity, float maxVelocity)
     {
-        return Vector3.zero;
+        accelerometerBar.fillAmount = currentVelocity / maxVelocity;
     }
 
     void GroundCheck()
@@ -98,11 +99,10 @@ public class playerMotion : MonoBehaviour
 
         Vector3 xzSpeed = new Vector3(normalizedXZMovement.x * maxSpeed, velocity.y, normalizedXZMovement.z * maxSpeed);
 
-
-        pRB.AddForce(transform.forward * (accelerationForce * Mathf.Max(0.5f, (velocity.magnitude / maxSpeed))) * Mathf.Max(0,Input.GetAxis(verticalAxis)*Time.deltaTime), ForceMode.Impulse);
-     
-        
-        
+        if (Input.GetButtonDown(accelerateAxis))
+        {
+            pRB.AddForce(transform.forward * accelerationForce * /*(accelerationForce *  Mathf.Max(0.5f, (velocity.magnitude / maxSpeed)))*/ Mathf.Max(0, Input.GetAxis(verticalAxis)), ForceMode.VelocityChange);
+        }
         if (xZPlaneSpeed >= maxSpeed)
         {
             pRB.velocity = xzSpeed;
@@ -110,15 +110,16 @@ public class playerMotion : MonoBehaviour
 
         if (Input.GetButton(brakeAxis))
         {
-            Debug.Log(Input.GetAxis(brakeAxis));
-            pRB.velocity = normalizedXZMovement * (brakeForce / 1);
+            // pRB.velocity = normalizedXZMovement * (brakeForce*Time.deltaTime / 1);
+            pRB.AddForce(-pRB.velocity.normalized / Mathf.Max(0.1f, brakeForce));
         }
-
         if (Input.GetAxis(jumpAxis)>0.9f&&isGrounded)
         {
             
             pRB.AddForce(transform.up * jumpForce,ForceMode.VelocityChange);
         }
+
+        ScaleAccelerometer(xZPlaneSpeed, maxSpeed);
     }
 
     private void OnDrawGizmos()
