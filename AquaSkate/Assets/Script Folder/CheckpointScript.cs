@@ -9,6 +9,7 @@ public class CheckpointScript : MonoBehaviour
     [SerializeField] int checkPointValue;
     [SerializeField] int playerCount = 0;
     [SerializeField] float time = 0, storedMaxSpeed;
+    [SerializeField] float boostMultiplier = 1.2f;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class CheckpointScript : MonoBehaviour
             var pM = other.gameObject.GetComponent<playerMotion>();
             var pR = other.gameObject.GetComponent<Rigidbody>();
             pM.currentCheckPointTarget++;
-            pM.maxSpeed *= 2;
+            pM.maxSpeed *= boostMultiplier;
             pR.AddForce(other.gameObject.transform.forward * pM.boostForce, ForceMode.VelocityChange);
             StartCoroutine(boostTime(other.gameObject));
         }
@@ -36,8 +37,7 @@ public class CheckpointScript : MonoBehaviour
     IEnumerator boostTime(GameObject other)
     {
         
-        yield return new WaitForSeconds(5f);
-        Debug.Log("Got here");
+        yield return new WaitForSeconds(time);
         other.gameObject.GetComponent<playerMotion>().maxSpeed = storedMaxSpeed;
         
         
