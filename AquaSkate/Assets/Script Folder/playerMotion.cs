@@ -12,6 +12,7 @@ public class playerMotion : MonoBehaviour
 
     [SerializeField] string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
     [SerializeField] Image accelerometerBar;
+    public Image powerUpImage;
     [SerializeField] Text checkPointUI;
     [SerializeField] int amountOfCheckpoints;
 
@@ -52,7 +53,7 @@ public class playerMotion : MonoBehaviour
     
     void ScaleAccelerometer(float currentVelocity, float maxVelocity)
     {
-        accelerometerBar.fillAmount = currentVelocity / maxVelocity;
+        accelerometerBar.fillAmount = Mathf.Lerp(accelerometerBar.fillAmount,currentVelocity / maxVelocity,Time.deltaTime*2f);
     }
 
     void GroundCheck()

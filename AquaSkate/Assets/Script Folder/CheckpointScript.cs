@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CheckpointScript : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CheckpointScript : MonoBehaviour
     [SerializeField] int playerCount = 0;
     [SerializeField] float time = 0, storedMaxSpeed;
     [SerializeField] float boostMultiplier = 1.2f;
+    
 
     private void Awake()
     {
