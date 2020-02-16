@@ -5,12 +5,19 @@ using UnityEngine.UI;
 
 public class playerMotion : MonoBehaviour
 {
+    [SerializeField] Quaternion sQ = Quaternion.identity;
+
+    public int currentCheckPointTarget;
+    public bool canPause = false;
+
     [SerializeField] string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
     [SerializeField] Image accelerometerBar;
 
+
     Rigidbody pRB;
     [SerializeField] Vector3 appliedForce;
-    [SerializeField] float maxSpeed, maxForce, accelerationForce, brakeForce, xZPlaneSpeed, jumpForce, turnSpeed,turnScaler;
+    [SerializeField] float maxSpeed, maxForce, accelerationForce, brakeForce, xZPlaneSpeed, jumpForce, turnSpeed, turnScaler;
+    [SerializeField, Range(0,1)] float steeringScaler;
     [SerializeField] bool isGrounded;
     [SerializeField] Transform groundTransform, slopeTransform;
 
@@ -23,6 +30,7 @@ public class playerMotion : MonoBehaviour
     Ray rampRay;
     private void Awake()
     {
+        currentCheckPointTarget = 0;
         pRB = this.gameObject.GetComponent<Rigidbody>();
         pRB.drag = 0f;
     }
@@ -31,7 +39,7 @@ public class playerMotion : MonoBehaviour
     void FixedUpdate()
     {
         GroundCheck();
-        //SlopeCheck();
+       // SlopeCheck();
         groundCheckRay = new Ray(groundTransform.position, -transform.up);
         rampRay = new Ray(slopeTransform.position, transform.forward);
         
@@ -64,19 +72,16 @@ public class playerMotion : MonoBehaviour
     void SlopeCheck()
     {
         RaycastHit rH;
-        if (Physics.Raycast(rampRay, out rH, 100f))
+        if (Physics.Raycast(groundCheckRay, out rH, 100f))
         {
             if (rH.collider.tag == "Ground")
             {
-                rampNormal= rH.normal;
-                rampHitPoint = rH.point;
-                float angle = Vector3.Angle(Vector3.forward, rampNormal);
-
-                playerPlane = new Vector3(slopeTransform.position.x, slopeTransform.position.y, slopeTransform.position.z);
-                hitNormaltoPlane = new Vector3(rampNormal.x, 0, rampNormal.z) + rampHitPoint;
-                targetDir = (hitNormaltoPlane-rampHitPoint) - slopeTransform.position;
-                testVector = targetDir;
-                float planeAngle = Vector3.Angle(transform.forward, targetDir);
+                float angle = Vector3.Angle(Vector3.up, rH.normal);
+                Vector3 axis = Vector3.Cross(Vector3.up, rH.normal);
+                sQ = Quaternion.AngleAxis(angle, axis);
+                sQ.y = this.transform.rotation.y;
+                sQ.w *= this.transform.rotation.w;
+                this.transform.rotation = sQ;
             }
             
         }
@@ -101,7 +106,8 @@ public class playerMotion : MonoBehaviour
 
         if (Input.GetButtonDown(accelerateAxis))
         {
-            pRB.AddForce(transform.forward * accelerationForce * /*(accelerationForce *  Mathf.Max(0.5f, (velocity.magnitude / maxSpeed)))*/ Mathf.Max(0, Input.GetAxis(verticalAxis)), ForceMode.VelocityChange);
+            
+            pRB.AddForce((transform.forward ) * accelerationForce * /*(accelerationForce *  Mathf.Max(0.5f, (velocity.magnitude / maxSpeed)))*/ Mathf.Max(0, Input.GetAxis(verticalAxis)), ForceMode.VelocityChange);
         }
         if (xZPlaneSpeed >= maxSpeed)
         {
@@ -119,23 +125,13 @@ public class playerMotion : MonoBehaviour
             pRB.AddForce(transform.up * jumpForce,ForceMode.VelocityChange);
         }
 
+        pRB.velocity = Vector3.Lerp(pRB.velocity, transform.forward * xZPlaneSpeed, steeringScaler * Time.deltaTime);
+
         ScaleAccelerometer(xZPlaneSpeed, maxSpeed);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawLine(slopeTransform.position, transform.forward+slopeTransform.position);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(rampHitPoint, /*rampNormal*/ new Vector3(rampNormal.x, 0, rampNormal.z) + rampHitPoint);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(slopeTransform.transform.position, targetDir.normalized);
-        
-
-
-        
-        
+       
     }
 }

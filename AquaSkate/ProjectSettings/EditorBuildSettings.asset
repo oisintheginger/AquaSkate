@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Oisin Motion Test Scene.unity
+    guid: dc0b56df4d139bc4dae3d0bb67ba37bc
+  - enabled: 1
+    path: Assets/Scenes/Tech Tree.unity
+    guid: 541791b638600ea41b612aae2e4fef14
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: bae8dff4345a7a84fb7a042bde8117a0
+  - enabled: 1
+    path: Assets/Scenes/Play.unity
+    guid: 1b29eea711dbdfb49a57509a4d82ce4c
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: d74345c19e226b349b6e8657da78b2ec
   m_configObjects: {}
