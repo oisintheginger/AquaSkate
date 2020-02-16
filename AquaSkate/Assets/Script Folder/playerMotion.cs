@@ -8,7 +8,7 @@ public class playerMotion : MonoBehaviour
     [SerializeField] Quaternion sQ = Quaternion.identity;
 
     public int currentCheckPointTarget;
-    public bool canPause = false;
+    public bool canPause = false, isPoweredUp= false;
 
     [SerializeField] string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
     [SerializeField] Image accelerometerBar;
@@ -18,7 +18,7 @@ public class playerMotion : MonoBehaviour
     Rigidbody pRB;
     [SerializeField] Vector3 appliedForce;
     public float maxSpeed, maxForce, boostForce, accelerationForce, brakeForce, xZPlaneSpeed, jumpForce, turnSpeed, turnScaler;
-    [SerializeField, Range(0,1)] float steeringScaler;
+    [Range(0,5)] public float steeringScaler;
     [SerializeField] bool isGrounded;
     [SerializeField] Transform groundTransform, slopeTransform;
 
