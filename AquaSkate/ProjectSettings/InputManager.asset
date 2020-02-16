@@ -182,22 +182,6 @@ InputManager:
     axis: 21
     joyNum: 1
   - serializedVersion: 3
-    m_Name: Player2Brake
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 2
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1190.74
-    dead: 0.96
-    sensitivity: 1103.95
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 21
-    joyNum: 1
-  - serializedVersion: 3
     m_Name: Fire2
     descriptiveName: 
     descriptiveNegativeName: 
