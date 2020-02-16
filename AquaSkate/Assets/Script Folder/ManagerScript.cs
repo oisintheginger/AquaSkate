@@ -6,11 +6,14 @@ public class ManagerScript : MonoBehaviour
 {
     public bool IsPaused = false;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] bool lockCursor = false;
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
-
     private void Update()
     {
         if(Input.GetButtonDown("Pause"))

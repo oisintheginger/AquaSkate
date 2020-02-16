@@ -3018,6 +3018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsPaused: 0
   pauseMenu: {fileID: 475748004}
+  lockCursor: 0
 --- !u!4 &2088512334
 Transform:
   m_ObjectHideFlags: 0
