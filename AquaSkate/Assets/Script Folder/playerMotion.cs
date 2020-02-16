@@ -12,11 +12,12 @@ public class playerMotion : MonoBehaviour
 
     [SerializeField] string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
     [SerializeField] Image accelerometerBar;
-
+    [SerializeField] Text checkPointUI;
+    [SerializeField] int amountOfCheckpoints;
 
     Rigidbody pRB;
     [SerializeField] Vector3 appliedForce;
-    [SerializeField] float maxSpeed, maxForce, accelerationForce, brakeForce, xZPlaneSpeed, jumpForce, turnSpeed, turnScaler;
+    public float maxSpeed, maxForce, boostForce, accelerationForce, brakeForce, xZPlaneSpeed, jumpForce, turnSpeed, turnScaler;
     [SerializeField, Range(0,1)] float steeringScaler;
     [SerializeField] bool isGrounded;
     [SerializeField] Transform groundTransform, slopeTransform;
@@ -33,18 +34,19 @@ public class playerMotion : MonoBehaviour
         currentCheckPointTarget = 0;
         pRB = this.gameObject.GetComponent<Rigidbody>();
         pRB.drag = 0f;
+        amountOfCheckpoints = GameObject.FindObjectsOfType<CheckpointScript>().Length;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         GroundCheck();
-       // SlopeCheck();
+        SlopeCheck();
         groundCheckRay = new Ray(groundTransform.position, -transform.up);
         rampRay = new Ray(slopeTransform.position, transform.forward);
         
         Motion();
-
+        checkPointUI.text = currentCheckPointTarget + "/" + amountOfCheckpoints;
         
     }
     
@@ -79,9 +81,10 @@ public class playerMotion : MonoBehaviour
                 float angle = Vector3.Angle(Vector3.up, rH.normal);
                 Vector3 axis = Vector3.Cross(Vector3.up, rH.normal);
                 sQ = Quaternion.AngleAxis(angle, axis);
-                sQ.y = this.transform.rotation.y;
-                sQ.w *= this.transform.rotation.w;
-                this.transform.rotation = sQ;
+                if(sQ.z>0||sQ.x>0)
+                {
+                    pRB.AddForce(transform.up * 0.5f, ForceMode.VelocityChange);
+                }
             }
             
         }
@@ -103,11 +106,16 @@ public class playerMotion : MonoBehaviour
         Vector3 normalizedXZMovement = new Vector3(velocity.x / xZPlaneSpeed, velocity.y, velocity.z / xZPlaneSpeed);
 
         Vector3 xzSpeed = new Vector3(normalizedXZMovement.x * maxSpeed, velocity.y, normalizedXZMovement.z * maxSpeed);
-
-        if (Input.GetButtonDown(accelerateAxis))
+       
+        if (Input.GetButtonDown(accelerateAxis)&&isGrounded)
         {
-            
-            pRB.AddForce((transform.forward ) * accelerationForce * /*(accelerationForce *  Mathf.Max(0.5f, (velocity.magnitude / maxSpeed)))*/ Mathf.Max(0, Input.GetAxis(verticalAxis)), ForceMode.VelocityChange);
+            pRB.AddForce((transform.forward ) * accelerationForce *  Mathf.Max(0, Input.GetAxis(verticalAxis)), ForceMode.VelocityChange);
+
+            /*
+            pRB.AddForce((transform.up * Mathf.Abs(Mathf.Tan(sQ.x) * pRB.velocity.x * accelerationForce))
+                        + (transform.up * Mathf.Abs(Mathf.Tan(sQ.z) * pRB.velocity.z * accelerationForce)), 
+                        ForceMode.VelocityChange);
+            */
         }
         if (xZPlaneSpeed >= maxSpeed)
         {
@@ -116,7 +124,6 @@ public class playerMotion : MonoBehaviour
 
         if (Input.GetButton(brakeAxis))
         {
-            // pRB.velocity = normalizedXZMovement * (brakeForce*Time.deltaTime / 1);
             pRB.AddForce(-pRB.velocity.normalized / Mathf.Max(0.1f, brakeForce));
         }
         if (Input.GetAxis(jumpAxis)>0.9f&&isGrounded)
