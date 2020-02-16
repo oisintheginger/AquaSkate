@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    public bool isGood;
+    public bool isGood, slows = false, speeds = false, slowSteering = false, speedsSteering = false;
+
+    [SerializeField] float storedSteering, storedMaxSpeed;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
@@ -12,6 +14,7 @@ public class PickUp : MonoBehaviour
         {
             var pM = other.gameObject.GetComponent<playerMotion>();
             var rB = other.gameObject.GetComponent<Rigidbody>();
+
 
         }
     }
