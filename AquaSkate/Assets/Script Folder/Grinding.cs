@@ -8,7 +8,7 @@ public class Grinding : MonoBehaviour
     [SerializeField] Transform startRail, endRail;
 
     [SerializeField] string jumpAxis;
-    [SerializeField] float jumpForce; 
+    [SerializeField] float jumpForce, grindTimer, storedMaxSpeed; 
 
     playerMotion motionScript;
 
@@ -20,6 +20,7 @@ public class Grinding : MonoBehaviour
     private void Start()
     {
         myRb = GetComponent<Rigidbody>();
+        storedMaxSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMotion>().maxSpeed;
         //startRail = GameObject.FindGameObjectWithTag("Rail").transform;
         motionScript = GetComponent<playerMotion>();
     }
@@ -34,7 +35,7 @@ public class Grinding : MonoBehaviour
             Debug.Log(Dist);
             myRb.MovePosition(new Vector3(startRail.position.x - Dist, startRail.position.y + 1.5f, startRail.position.z));
 
-            transform.LookAt(endRail.position);
+            
 
             isLanding = false;
             isGrinding = true;
@@ -45,8 +46,12 @@ public class Grinding : MonoBehaviour
         if (isGrinding)
         {
             motionScript.enabled = false;
-            
-            myRb.AddForce(transform.forward * 5f, ForceMode.Impulse);
+
+            grindTimer += Time.deltaTime;
+
+            transform.LookAt(new Vector3(endRail.position.x, transform.position.y, endRail.position.z));
+
+            myRb.AddForce(transform.forward * 1f, ForceMode.Impulse);
 
             if (Input.GetAxis(jumpAxis) > 0.9f)
             {
@@ -64,11 +69,36 @@ public class Grinding : MonoBehaviour
     {
         if(isGrinding)
         {
-            myRb.velocity = Vector3.zero;
+            //myRb.velocity = Vector3.zero;
             isGrinding = false;
         }
-        
+
+        var pM = gameObject.GetComponent<playerMotion>();
+        var pR = gameObject.GetComponent<Rigidbody>();
+
+        pM.maxSpeed *= 2;
+        pR.AddForce(gameObject.transform.forward * pM.boostForce, ForceMode.VelocityChange);
+        StartCoroutine(boostTime());
+
         motionScript.enabled = true;
+    }
+
+    IEnumerator boostTime()
+    {
+        if (grindTimer >= 1.5f)
+        {
+            yield return new WaitForSeconds(3f);
+        }
+
+        if(grindTimer < 1.5f)
+        {
+            yield return new WaitForSeconds(1.5f);
+        }
+        
+        Debug.Log("Got here");
+        gameObject.GetComponent<playerMotion>().maxSpeed = storedMaxSpeed;
+
+
     }
 
     private void OnTriggerEnter(Collider other)

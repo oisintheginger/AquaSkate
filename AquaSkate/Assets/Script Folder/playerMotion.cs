@@ -35,6 +35,7 @@ public class playerMotion : MonoBehaviour
         pRB = this.gameObject.GetComponent<Rigidbody>();
         pRB.drag = 0f;
         amountOfCheckpoints = GameObject.FindObjectsOfType<CheckpointScript>().Length;
+        
     }
 
     // Update is called once per frame
@@ -42,6 +43,7 @@ public class playerMotion : MonoBehaviour
     {
         GroundCheck();
         SlopeCheck();
+        
         groundCheckRay = new Ray(groundTransform.position, -transform.up);
         rampRay = new Ray(slopeTransform.position, transform.forward);
         
@@ -122,9 +124,9 @@ public class playerMotion : MonoBehaviour
             pRB.velocity = xzSpeed;
         }
 
-        if (Input.GetButton(brakeAxis))
+        if (Input.GetButton(brakeAxis) && isGrounded)
         {
-            pRB.AddForce(-pRB.velocity.normalized / Mathf.Max(0.1f, brakeForce));
+            pRB.AddForce(-pRB.velocity.normalized * Mathf.Max(0.1f, brakeForce));
         }
         if (Input.GetAxis(jumpAxis)>0.9f&&isGrounded)
         {
