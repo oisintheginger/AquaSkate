@@ -26,7 +26,8 @@ public class animationControl : MonoBehaviour
         {
             myAnim.SetBool("IsBraking", false);
         }
-        float turning = Input.GetAxis(pM.horizontalAxis);
+
+        float turning = Input.GetAxisRaw(pM.horizontalAxis);
         myAnim.SetFloat("Speed", pM.xZPlaneSpeed / pM.maxSpeed);
         myAnim.SetFloat("Turn", turning);
         myAnim.SetBool("Grounded", pM.isGrounded);
