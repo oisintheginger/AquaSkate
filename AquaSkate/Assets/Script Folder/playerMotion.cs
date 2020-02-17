@@ -111,12 +111,7 @@ public class playerMotion : MonoBehaviour
         if (Input.GetButtonDown(accelerateAxis)&&isGrounded)
         {
             pRB.AddForce((transform.forward ) * accelerationForce *  Mathf.Max(0, Input.GetAxis(verticalAxis)), ForceMode.VelocityChange);
-
-            /*
-            pRB.AddForce((transform.up * Mathf.Abs(Mathf.Tan(sQ.x) * pRB.velocity.x * accelerationForce))
-                        + (transform.up * Mathf.Abs(Mathf.Tan(sQ.z) * pRB.velocity.z * accelerationForce)), 
-                        ForceMode.VelocityChange);
-            */
+            
         }
         if (xZPlaneSpeed >= maxSpeed)
         {
