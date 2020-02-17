@@ -1,14 +1,14 @@
 fileFormatVersion: 2
 guid: 960b52a2d3c99244d9d3512037bfb3c4
 ModelImporter:
-  serializedVersion: 27
+  serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: 4781951162920444690
-    second: Armature|ArmatureAction
+    second: BalancedGrind
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -35,9 +35,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|ArmatureAction
+      name: BalancedGrind
       takeName: Armature|ArmatureAction
-      internalID: 4781951162920444690
+      internalID: 0
       firstFrame: 0
       lastFrame: 40
       wrapMode: 0
@@ -46,7 +46,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -117,8 +117,9 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7840fbf9c0fde7442b2fd0ac1fe28650,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: b06934aa4a613654f8f7367458fab6cd,
     type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 2

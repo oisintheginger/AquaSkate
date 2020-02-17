@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 6c9742a8901ecef43953ea328a31ebb1
+guid: a5b1b82ebe37a8e4cbcd3ea809a00642
 ModelImporter:
-  serializedVersion: 27
+  serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: 4781951162920444690
-    second: Armature|ArmatureAction
+    second: Jump
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -35,9 +35,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|ArmatureAction
+      name: Jump
       takeName: Armature|ArmatureAction
-      internalID: 4781951162920444690
+      internalID: 0
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0
@@ -117,8 +117,9 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7840fbf9c0fde7442b2fd0ac1fe28650,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: b06934aa4a613654f8f7367458fab6cd,
     type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 2
