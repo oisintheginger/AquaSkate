@@ -10,7 +10,7 @@ public class playerMotion : MonoBehaviour
     public int currentCheckPointTarget;
     public bool canPause = false, isPoweredUp= false;
 
-    [SerializeField] string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
+    public string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
     [SerializeField] Image accelerometerBar;
     public Image powerUpImage;
     [SerializeField] Text checkPointUI;
@@ -20,7 +20,7 @@ public class playerMotion : MonoBehaviour
     [SerializeField] Vector3 appliedForce;
     public float maxSpeed, maxForce, boostForce, accelerationForce, brakeForce, xZPlaneSpeed, jumpForce, turnSpeed, turnScaler;
     [Range(0,5)] public float steeringScaler;
-    [SerializeField] bool isGrounded;
+    public bool isGrounded;
     [SerializeField] Transform groundTransform, slopeTransform;
 
     [SerializeField] Vector3 rampNormal, rampHitPoint;
@@ -59,7 +59,7 @@ public class playerMotion : MonoBehaviour
     void GroundCheck()
     {
         RaycastHit rH;
-        if (Physics.Raycast(groundTransform.position, -transform.up, out rH, 0.5f))
+        if (Physics.Raycast(groundTransform.position, -transform.up, out rH, 0.6f))
         {
             if (rH.collider.gameObject.tag == "Ground")
             {
@@ -75,7 +75,7 @@ public class playerMotion : MonoBehaviour
     void SlopeCheck()
     {
         RaycastHit rH;
-        if (Physics.Raycast(groundCheckRay, out rH, 100f))
+        if (Physics.Raycast(groundCheckRay, out rH, 1f))
         {
             if (rH.collider.tag == "Ground")
             {

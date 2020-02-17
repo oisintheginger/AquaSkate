@@ -24,45 +24,48 @@ public class PickUp : MonoBehaviour
     {
         if(other.gameObject.tag=="Player")
         {
+            
             var pM = other.gameObject.GetComponent<playerMotion>();
             var rB = other.gameObject.GetComponent<Rigidbody>();
             pM.powerUpImage.gameObject.SetActive(true);
-
-            if (isGood && speedorSteering && pM.isPoweredUp==false)
+            if (pM.isPoweredUp == false)
             {
-                pM.isPoweredUp = true;
-                pM.powerUpImage.sprite = goodSpeedSprite;
-                pM.maxSpeed = speedAdjustment;
-                rB.AddForce(other.gameObject.transform.forward * pM.boostForce/3, ForceMode.VelocityChange);
-                StartCoroutine(restoreTime(other.gameObject, true, 10f));
+                if (isGood && speedorSteering)
+                {
+                    pM.isPoweredUp = true;
+                    pM.powerUpImage.sprite = goodSpeedSprite;
+                    pM.maxSpeed = speedAdjustment;
+                    rB.AddForce(other.gameObject.transform.forward * pM.boostForce / 3, ForceMode.VelocityChange);
+                    StartCoroutine(restoreTime(other.gameObject, true, 10f));
+                }
+                if (!isGood && speedorSteering)
+                {
+                    pM.isPoweredUp = true;
+                    pM.powerUpImage.sprite = badSpeedSprite;
+                    pM.maxSpeed = speedAdjustment;
+                    StartCoroutine(restoreTime(other.gameObject, true, 10f));
+                }
+                if (isGood && !speedorSteering)
+                {
+                    pM.powerUpImage.sprite = goodSteerSprite;
+                    pM.isPoweredUp = true;
+                    pM.steeringScaler = steerAdjustment;
+                    pM.turnScaler = turningAdjustment;
+                    pM.turnSpeed = turnSpeedAdjustment;
+                    StartCoroutine(restoreTime(other.gameObject, false, 10f));
+                }
+                if (!isGood && !speedorSteering)
+                {
+                    pM.powerUpImage.sprite = badSteerSprite;
+                    pM.isPoweredUp = true;
+                    pM.steeringScaler = steerAdjustment;
+                    pM.turnScaler = turningAdjustment;
+                    pM.turnSpeed = turnSpeedAdjustment;
+                    StartCoroutine(restoreTime(other.gameObject, false, 10f));
+                }
+                this.gameObject.GetComponent<SphereCollider>().enabled = false;
+                this.gameObject.GetComponent<MeshRenderer>().enabled = false;
             }
-            if(!isGood && speedorSteering && pM.isPoweredUp == false)
-            {
-                pM.isPoweredUp = true;
-                pM.powerUpImage.sprite = badSpeedSprite;
-                pM.maxSpeed = speedAdjustment;
-                StartCoroutine(restoreTime(other.gameObject, true, 10f));
-            }
-            if(isGood && !speedorSteering && pM.isPoweredUp == false)
-            {
-                pM.powerUpImage.sprite = goodSteerSprite;
-                pM.isPoweredUp = true;
-                pM.steeringScaler = steerAdjustment;
-                pM.turnScaler = turningAdjustment;
-                pM.turnSpeed = turnSpeedAdjustment;
-                StartCoroutine(restoreTime(other.gameObject, false, 10f));
-            }
-            if (!isGood && !speedorSteering && pM.isPoweredUp == false)
-            {
-                pM.powerUpImage.sprite = badSteerSprite;
-                pM.isPoweredUp = true;
-                pM.steeringScaler = steerAdjustment;
-                pM.turnScaler = turningAdjustment;
-                pM.turnSpeed = turnSpeedAdjustment;
-                StartCoroutine(restoreTime(other.gameObject, false, 10f));
-            }
-            this.gameObject.GetComponent<SphereCollider>().enabled = false;
-            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
     }
     IEnumerator restoreTime(GameObject other, bool speedorSteering, float timeToWait)
