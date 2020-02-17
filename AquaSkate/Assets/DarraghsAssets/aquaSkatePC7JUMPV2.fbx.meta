@@ -1,14 +1,14 @@
 fileFormatVersion: 2
 guid: 6c9742a8901ecef43953ea328a31ebb1
 ModelImporter:
-  serializedVersion: 27
+  serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: 4781951162920444690
     second: Armature|ArmatureAction
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -117,8 +117,9 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7840fbf9c0fde7442b2fd0ac1fe28650,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: b06934aa4a613654f8f7367458fab6cd,
     type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 2
