@@ -123,7 +123,7 @@ public class playerMotion : MonoBehaviour
             pRB.velocity = xzSpeed;
         }
 
-        if (Input.GetButton(brakeAxis)&&isGrounded)
+        if (Input.GetAxis(brakeAxis)>0&&isGrounded)
         {
             pRB.AddForce(-pRB.velocity.normalized / Mathf.Max(0.1f, brakeForce));
         }
