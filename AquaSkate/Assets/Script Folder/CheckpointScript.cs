@@ -24,7 +24,7 @@ public class CheckpointScript : MonoBehaviour
             playerCount++;
             if(isLastCheckpoint && playerCount==2)
             {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene("Menu");
             }
             //boosting
             var pM = other.gameObject.GetComponent<playerMotion>();
