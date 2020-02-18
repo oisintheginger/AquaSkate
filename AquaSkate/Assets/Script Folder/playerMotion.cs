@@ -59,7 +59,7 @@ public class playerMotion : MonoBehaviour
     void GroundCheck()
     {
         RaycastHit rH;
-        if (Physics.Raycast(groundTransform.position, -transform.up, out rH, 0.6f))
+        if (Physics.Raycast(groundTransform.position, -transform.up, out rH, 0.3f))
         {
             if (rH.collider.gameObject.tag == "Ground")
             {
@@ -75,7 +75,7 @@ public class playerMotion : MonoBehaviour
     void SlopeCheck()
     {
         RaycastHit rH;
-        if (Physics.Raycast(groundCheckRay, out rH, 1f))
+        if (Physics.Raycast(groundCheckRay, out rH, .1f))
         {
             if (rH.collider.tag == "Ground")
             {

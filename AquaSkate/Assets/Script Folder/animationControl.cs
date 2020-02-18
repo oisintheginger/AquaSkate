@@ -29,11 +29,20 @@ public class animationControl : MonoBehaviour
 
         float turning = Input.GetAxisRaw(pM.horizontalAxis);
         myAnim.SetFloat("Speed", 2*(pM.xZPlaneSpeed / pM.maxSpeed));
-        if (Input.GetAxis(pM.verticalAxis)>1&& pM.xZPlaneSpeed>0.1f)
+        /*
+        if (Input.GetAxis(pM.verticalAxis)>.5&& pM.xZPlaneSpeed>0.1f)
         {
-            //myAnim.SetFloat("Speed", 2);
+            myAnim.SetFloat("Speed", 1);
+            if(pM.xZPlaneSpeed > 40f)
+            {
+                myAnim.SetFloat("Speed", 2);
+            }
         }
-        
+        else if(pM.xZPlaneSpeed < 0.1f)
+        {
+            myAnim.SetFloat("Speed", 0);
+        }
+        */
         myAnim.SetFloat("Turn", turning);
         myAnim.SetBool("Grounded", pM.isGrounded);
     }
