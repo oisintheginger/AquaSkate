@@ -9,19 +9,42 @@ public class CheckpointScript : MonoBehaviour
     [SerializeField] bool isLastCheckpoint =false;
     [SerializeField] int checkPointValue;
     [SerializeField] int playerCount = 0;
+    [SerializeField] int p1Level, p2Level;
     [SerializeField] float time = 0, storedMaxSpeed;
     [SerializeField] float boostMultiplier = 1.2f;
     
 
     private void Awake()
     {
-        storedMaxSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMotion>().maxSpeed;   
+        storedMaxSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMotion>().maxSpeed;
+        p1Level = PlayerPrefs.GetInt("p1Level");
+        p2Level = PlayerPrefs.GetInt("p2Level");
+        
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag=="Player"&& other.gameObject.GetComponent<playerMotion>().currentCheckPointTarget==checkPointValue-1)
         {
             playerCount++;
+
+            if(isLastCheckpoint && playerCount == 1)
+            {
+                PlayerPrefs.SetString("Winner", other.name);
+
+
+                if(other.name == "Player 1")
+                {
+                    p1Level++;
+                    PlayerPrefs.SetInt("p1Level", p1Level);
+                }
+
+                else
+                {
+                    p2Level++;
+                    PlayerPrefs.SetInt("p2Level", p2Level);
+                }
+            }
+
             if(isLastCheckpoint && playerCount==2)
             {
                 SceneManager.LoadScene("Menu");

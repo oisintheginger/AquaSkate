@@ -220,7 +220,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask1Text: {fileID: 1926504414}
   mask2Text: {fileID: 2066991960}
+  p1Level: 0
+  p2Level: 0
+  maskCount: 0
   isPlayer1: 0
+  Mask1: {fileID: 389131900}
+  Mask2: {fileID: 2022796272}
 --- !u!114 &117798850
 MonoBehaviour:
   m_ObjectHideFlags: 0
