@@ -12,7 +12,7 @@ public class playerMotion : MonoBehaviour
 
     public string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
     [SerializeField] Image accelerometerBar;
-    public Image powerUpImage;
+    public Image powerUpImage, winScreen;
     [SerializeField] Text checkPointUI;
     [SerializeField] int amountOfCheckpoints;
 
