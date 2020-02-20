@@ -4302,6 +4302,8 @@ GameObject:
   - component: {fileID: 5383437409617587341}
   - component: {fileID: 5383437409617587338}
   - component: {fileID: 5383437409617587339}
+  - component: {fileID: 518250242169791079}
+  - component: {fileID: -453872410602635748}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -4449,6 +4451,46 @@ MonoBehaviour:
   playerPlane: {x: 0, y: 0, z: 0}
   hitNormaltoPlane: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
+--- !u!114 &518250242169791079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5383437409617587336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1fa890b8bcea445979b1553d4cc7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerAxis: Right Trigger
+  isGrounded: 0
+  isBraking: 0
+  isBoosted: 0
+  groundTransform: {fileID: 0}
+--- !u!114 &-453872410602635748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5383437409617587336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c988ec4091b4765438b46aced4c7fc4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myRb: {fileID: 0}
+  startRail: {fileID: 0}
+  endRail: {fileID: 0}
+  jumpAxis: Player1Jump
+  jumpForce: 40.47
+  grindTimer: 0
+  storedMaxSpeed: 0
+  grindingSpeed: 23.94
+  boostSpeed: 3.04
+  isGrinding: 0
+  isLanding: 0
 --- !u!1 &5383437409620881146
 GameObject:
   m_ObjectHideFlags: 0
