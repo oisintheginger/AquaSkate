@@ -31,7 +31,7 @@ public class CheckpointScript : MonoBehaviour
             if(isLastCheckpoint && playerCount == 1)
             {
                 PlayerPrefs.SetString("Winner", other.name);
-
+                other.gameObject.GetComponent<playerMotion>().winScreen.gameObject.SetActive(true);
 
                 if(other.name == "Player 1")
                 {
