@@ -27,9 +27,10 @@ public class CheckpointScript : MonoBehaviour
         if(other.gameObject.tag=="Player"&& other.gameObject.GetComponent<playerMotion>().currentCheckPointTarget==checkPointValue-1)
         {
             playerCount++;
-
+            
             if(isLastCheckpoint && playerCount == 1)
             {
+                StartCoroutine(menuLoad());
                 PlayerPrefs.SetString("Winner", other.name);
                 other.gameObject.GetComponent<playerMotion>().winScreen.gameObject.SetActive(true);
 
@@ -67,6 +68,12 @@ public class CheckpointScript : MonoBehaviour
         other.gameObject.GetComponent<playerMotion>().maxSpeed = storedMaxSpeed;
         
         
+    }
+    IEnumerator menuLoad()
+    {
+        yield return new WaitForSeconds(10f);
+        SceneManager.LoadScene("Menu");
+       
     }
     void timer(float timeToWait, GameObject other)
     {
