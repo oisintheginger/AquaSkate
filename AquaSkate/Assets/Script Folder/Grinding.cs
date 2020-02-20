@@ -55,7 +55,6 @@ public class Grinding : MonoBehaviour
             myRb.velocity = transform.forward * grindingSpeed;
             if (Input.GetAxis(jumpAxis) > 0.9f)
             {
-
                 myRb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
                 isGrinding = false;
                 myRb.useGravity = true;

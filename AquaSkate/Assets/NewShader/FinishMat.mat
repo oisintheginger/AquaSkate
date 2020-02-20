@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CheckPointMat
-  m_Shader: {fileID: -6465566751694194690, guid: ed6c24fd97832c04cb97e514ec36f170,
+  m_Name: FinishMat
+  m_Shader: {fileID: -6465566751694194690, guid: 85ebc0b55a3ce70409862ef269b6d01b,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_DE929C3D:
-        m_Texture: {fileID: 2800000, guid: 6a69f9d7e93d7c64485f96d6fa379e4c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3d24a05f42e434149b9257e24f4911d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -77,7 +77,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_989ED2EC: {r: 0.6362123, g: 0, b: 1, a: 0}
+    - Color_989ED2EC: {r: 1, g: 0.6273585, b: 0.97459024, a: 0}
     - Color_D59C9C30: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_868441E7: {r: 5, g: 5, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
