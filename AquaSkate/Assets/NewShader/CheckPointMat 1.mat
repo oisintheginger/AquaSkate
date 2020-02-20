@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CheckPointMat 1
-  m_Shader: {fileID: -6465566751694194690, guid: ed6c24fd97832c04cb97e514ec36f170,
+  m_Shader: {fileID: -6465566751694194690, guid: 85ebc0b55a3ce70409862ef269b6d01b,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
