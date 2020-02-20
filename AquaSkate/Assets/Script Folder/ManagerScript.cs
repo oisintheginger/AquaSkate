@@ -6,7 +6,7 @@ public class ManagerScript : MonoBehaviour
 {
     public bool IsPaused = false;
     [SerializeField] GameObject pauseMenu;
-    [SerializeField] bool lockCursor = false;
+    [SerializeField] bool lockCursor = false, canPause = false;
     private void Awake()
     {
         if (lockCursor)
@@ -16,15 +16,18 @@ public class ManagerScript : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetButtonDown("Pause"))
+        if (canPause)
         {
-            if(IsPaused)
+            if (Input.GetButtonDown("Pause"))
             {
-                Play();
-            }
-            else
-            {
-                Pause();
+                if (IsPaused)
+                {
+                    Play();
+                }
+                else
+                {
+                    Pause();
+                }
             }
         }
     }

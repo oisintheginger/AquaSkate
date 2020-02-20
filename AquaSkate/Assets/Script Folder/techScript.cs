@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class techScript : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class techScript : MonoBehaviour
     [SerializeField] int p1Level, p2Level, maskCount;
     [SerializeField] bool isPlayer1;
 
-    [SerializeField] GameObject Mask1, Mask2;
+    [SerializeField] GameObject Mask1, Mask2, p1Background, p2Background, Mask1Pic, Mask2Pic;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class techScript : MonoBehaviour
             {
                 Mask1.SetActive(false);
                 Mask2.SetActive(false);
+
             }
 
             if (p1Level >= 1 && p1Level < 4)
@@ -56,7 +58,7 @@ public class techScript : MonoBehaviour
                 Mask2.SetActive(false);
             }
 
-            if (p2Level >= 1 && p1Level < 4)
+            if (p2Level >= 1 && p2Level < 4)
             {
                 Mask1.SetActive(true);
                 Mask2.SetActive(false);
@@ -75,7 +77,7 @@ public class techScript : MonoBehaviour
 
         if(button.name == "Mask 1")
         {
-            Debug.Log("yeet");
+            //Debug.Log("yeet");
             mask1Text.enabled = true;
             mask2Text.enabled = false;
         }
@@ -94,11 +96,15 @@ public class techScript : MonoBehaviour
         if(button.name == "Player 1")
         {
             isPlayer1 = true;
+            p1Background.SetActive(true);
+            p2Background.SetActive(false);
         }
 
         else
         {
             isPlayer1 = false;
+            p1Background.SetActive(false);
+            p2Background.SetActive(true);
 
         }
 
@@ -113,6 +119,11 @@ public class techScript : MonoBehaviour
         }
 
         Debug.Log(isPlayer1);
+
+        if(button.name == "Return")
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 
 
