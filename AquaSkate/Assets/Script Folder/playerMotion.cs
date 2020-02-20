@@ -53,7 +53,7 @@ public class playerMotion : MonoBehaviour
         SlopeCheck();
         groundCheckRay = new Ray(groundTransform.position, -transform.up);
         rampRay = new Ray(slopeTransform.position, transform.forward);
-        
+        this.gameObject.transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
         Motion();
         checkPointUI.text = currentCheckPointTarget + "/" + amountOfCheckpoints;
         
