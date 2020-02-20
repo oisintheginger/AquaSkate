@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class CheckpointScript : MonoBehaviour
 {
     [SerializeField] bool isLastCheckpoint =false;
-    [SerializeField] int checkPointValue;
+    public int checkPointValue;
+    [SerializeField] float checkpointLevel;
     [SerializeField] int playerCount = 0;
     [SerializeField] int p1Level, p2Level;
     [SerializeField] float time = 0, storedMaxSpeed;
@@ -26,11 +27,12 @@ public class CheckpointScript : MonoBehaviour
         if(other.gameObject.tag=="Player"&& other.gameObject.GetComponent<playerMotion>().currentCheckPointTarget==checkPointValue-1)
         {
             playerCount++;
-
+            
             if(isLastCheckpoint && playerCount == 1)
             {
+                StartCoroutine(menuLoad());
                 PlayerPrefs.SetString("Winner", other.name);
-
+                other.gameObject.GetComponent<playerMotion>().winScreen.gameObject.SetActive(true);
 
                 if(other.name == "Player 1")
                 {
@@ -66,6 +68,12 @@ public class CheckpointScript : MonoBehaviour
         other.gameObject.GetComponent<playerMotion>().maxSpeed = storedMaxSpeed;
         
         
+    }
+    IEnumerator menuLoad()
+    {
+        yield return new WaitForSeconds(10f);
+        SceneManager.LoadScene("Menu");
+       
     }
     void timer(float timeToWait, GameObject other)
     {

@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f6a2e35e61c5b76409851de97bf1ef18, type: 2}
+  - {fileID: 2100000, guid: dbcfa8bcf36406f4eaaa459c57c32a56, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLastCheckpoint: 0
   checkPointValue: 1
+  checkpointLevel: 0
   playerCount: 0
+  p1Level: 0
+  p2Level: 0
   time: 2
   storedMaxSpeed: 0
   boostMultiplier: 1.35

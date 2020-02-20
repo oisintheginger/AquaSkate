@@ -12,7 +12,7 @@ public class playerMotion : MonoBehaviour
 
     public string horizontalAxis, verticalAxis, jumpAxis, accelerateAxis, brakeAxis;
     [SerializeField] Image accelerometerBar;
-    public Image powerUpImage;
+    public Image powerUpImage, winScreen;
     [SerializeField] Text checkPointUI;
     [SerializeField] int amountOfCheckpoints;
 
@@ -35,7 +35,15 @@ public class playerMotion : MonoBehaviour
         currentCheckPointTarget = 0;
         pRB = this.gameObject.GetComponent<Rigidbody>();
         pRB.drag = 0f;
-        amountOfCheckpoints = GameObject.FindObjectsOfType<CheckpointScript>().Length;
+        int aCP =0;
+        for(int i = 0; i< GameObject.FindObjectsOfType<CheckpointScript>().Length; i++)
+        {
+            if(GameObject.FindObjectsOfType<CheckpointScript>()[i].checkPointValue > aCP)
+            {
+                aCP = GameObject.FindObjectsOfType<CheckpointScript>()[i].checkPointValue;
+            }
+        }
+        amountOfCheckpoints = aCP;
     }
 
     // Update is called once per frame
@@ -45,7 +53,7 @@ public class playerMotion : MonoBehaviour
         SlopeCheck();
         groundCheckRay = new Ray(groundTransform.position, -transform.up);
         rampRay = new Ray(slopeTransform.position, transform.forward);
-        
+        this.gameObject.transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
         Motion();
         checkPointUI.text = currentCheckPointTarget + "/" + amountOfCheckpoints;
         

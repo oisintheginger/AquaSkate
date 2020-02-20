@@ -8,7 +8,8 @@ public class Grinding : MonoBehaviour
     [SerializeField] Transform startRail, endRail;
 
     [SerializeField] string jumpAxis;
-    [SerializeField] float jumpForce, grindTimer, storedMaxSpeed; 
+    [SerializeField] float jumpForce, grindTimer, storedMaxSpeed;
+    [SerializeField] float grindingSpeed, boostSpeed;
 
     playerMotion motionScript;
 
@@ -29,7 +30,6 @@ public class Grinding : MonoBehaviour
     {
         if(isLanding)
         {
-            myRb.velocity = Vector3.zero;
             float Dist = Vector3.Distance(transform.position, startRail.position);
 
             Debug.Log(Dist);
@@ -46,18 +46,18 @@ public class Grinding : MonoBehaviour
         if (isGrinding)
         {
             motionScript.enabled = false;
-
+            
             grindTimer += Time.deltaTime;
 
             transform.LookAt(new Vector3(endRail.position.x, transform.position.y, endRail.position.z));
 
-            myRb.AddForce(transform.forward * 1f, ForceMode.Impulse);
-
+            //myRb.AddForce(transform.forward * 1f, ForceMode.Impulse);
+            myRb.velocity = transform.forward * grindingSpeed;
             if (Input.GetAxis(jumpAxis) > 0.9f)
             {
-
                 myRb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
                 isGrinding = false;
+                myRb.useGravity = true;
                 EndGrind();
             }
         }
@@ -69,17 +69,16 @@ public class Grinding : MonoBehaviour
     {
         if(isGrinding)
         {
-            //myRb.velocity = Vector3.zero;
             isGrinding = false;
         }
 
         var pM = gameObject.GetComponent<playerMotion>();
         var pR = gameObject.GetComponent<Rigidbody>();
 
-        pM.maxSpeed *= 2;
-        pR.AddForce(gameObject.transform.forward * pM.boostForce, ForceMode.VelocityChange);
+        pM.maxSpeed *= 1.5f;
+        pR.AddForce(gameObject.transform.forward * boostSpeed, ForceMode.VelocityChange);
         StartCoroutine(boostTime());
-
+        myRb.useGravity = true;
         motionScript.enabled = true;
     }
 
@@ -103,14 +102,15 @@ public class Grinding : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!isGrinding && myRb.velocity.y < 0)
+        if(!isGrinding && myRb.velocity.y < -0.2f)
         {
             if(other.gameObject.tag == "Rail")
             {
                 isLanding = true;
                 startRail = other.transform;
                 endRail = other.transform.GetChild(0);
-                
+                myRb.velocity = Vector3.zero;
+                myRb.useGravity = false;
             }
         }
 
