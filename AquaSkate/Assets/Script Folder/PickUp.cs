@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class PickUp : MonoBehaviour
 {
     public bool isGood, speedorSteering = false;
-
+    [SerializeField] AudioClip goodPickup, badPickup;
+    AudioSource thisAS;
     private float storedSteering, storedMaxSpeed, storedTurning, storedTurningSpeed;
     [SerializeField] float steerAdjustment, speedAdjustment, turningAdjustment, turnSpeedAdjustment;
     [SerializeField] Sprite badSteerSprite, goodSteerSprite, badSpeedSprite, goodSpeedSprite;
@@ -17,6 +18,7 @@ public class PickUp : MonoBehaviour
         storedMaxSpeed = GameObject.FindObjectOfType<playerMotion>().maxSpeed;
         storedTurning = GameObject.FindObjectOfType<playerMotion>().turnScaler;
         storedTurningSpeed = GameObject.FindObjectOfType<playerMotion>().turnSpeed;
+        thisAS = this.gameObject.GetComponent<AudioSource>();
 
     }
 
@@ -37,6 +39,7 @@ public class PickUp : MonoBehaviour
                     pM.maxSpeed = speedAdjustment;
                     rB.AddForce(other.gameObject.transform.forward * pM.boostForce / 3, ForceMode.VelocityChange);
                     StartCoroutine(restoreTime(other.gameObject, true, 10f));
+                    thisAS.PlayOneShot(goodPickup);
                 }
                 if (!isGood && speedorSteering)
                 {
@@ -44,6 +47,7 @@ public class PickUp : MonoBehaviour
                     pM.powerUpImage.sprite = badSpeedSprite;
                     pM.maxSpeed = speedAdjustment;
                     StartCoroutine(restoreTime(other.gameObject, true, 10f));
+                    thisAS.PlayOneShot(badPickup);
                 }
                 if (isGood && !speedorSteering)
                 {
@@ -53,6 +57,7 @@ public class PickUp : MonoBehaviour
                     pM.turnScaler = turningAdjustment;
                     pM.turnSpeed = turnSpeedAdjustment;
                     StartCoroutine(restoreTime(other.gameObject, false, 10f));
+                    thisAS.PlayOneShot(goodPickup);
                 }
                 if (!isGood && !speedorSteering)
                 {
@@ -62,6 +67,7 @@ public class PickUp : MonoBehaviour
                     pM.turnScaler = turningAdjustment;
                     pM.turnSpeed = turnSpeedAdjustment;
                     StartCoroutine(restoreTime(other.gameObject, false, 10f));
+                    thisAS.PlayOneShot(badPickup);
                 }
                 this.gameObject.GetComponent<SphereCollider>().enabled = false;
                 this.gameObject.GetComponent<MeshRenderer>().enabled = false;
