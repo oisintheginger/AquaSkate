@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class CheckpointScript : MonoBehaviour
 {
     [SerializeField] bool isLastCheckpoint =false;
-    [SerializeField] int checkPointValue;
+    public int checkPointValue;
+    [SerializeField] float checkpointLevel;
     [SerializeField] int playerCount = 0;
     [SerializeField] int p1Level, p2Level;
     [SerializeField] float time = 0, storedMaxSpeed;

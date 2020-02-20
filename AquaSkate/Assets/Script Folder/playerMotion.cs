@@ -35,7 +35,15 @@ public class playerMotion : MonoBehaviour
         currentCheckPointTarget = 0;
         pRB = this.gameObject.GetComponent<Rigidbody>();
         pRB.drag = 0f;
-        amountOfCheckpoints = GameObject.FindObjectsOfType<CheckpointScript>().Length;
+        int aCP =0;
+        for(int i = 0; i< GameObject.FindObjectsOfType<CheckpointScript>().Length; i++)
+        {
+            if(GameObject.FindObjectsOfType<CheckpointScript>()[i].checkPointValue > aCP)
+            {
+                aCP = GameObject.FindObjectsOfType<CheckpointScript>()[i].checkPointValue;
+            }
+        }
+        amountOfCheckpoints = aCP;
     }
 
     // Update is called once per frame
