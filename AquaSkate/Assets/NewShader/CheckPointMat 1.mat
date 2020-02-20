@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CheckPointMat
+  m_Name: CheckPointMat 1
   m_Shader: {fileID: -6465566751694194690, guid: ed6c24fd97832c04cb97e514ec36f170,
     type: 3}
   m_ShaderKeywords: 
@@ -78,7 +78,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_989ED2EC: {r: 0.6362123, g: 0, b: 1, a: 0}
-    - Color_D59C9C30: {r: 0, g: 0, b: 0, a: 0}
+    - Color_D59C9C30: {r: 0, g: 0.7149544, b: 1, a: 0}
     - Vector2_868441E7: {r: 5, g: 5, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
