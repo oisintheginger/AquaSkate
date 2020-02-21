@@ -69,7 +69,7 @@ public class playerMotion : MonoBehaviour
         RaycastHit rH;
         if (Physics.Raycast(groundTransform.position, -transform.up, out rH, 0.3f))
         {
-            if (rH.collider.gameObject.tag == "Ground")
+            if (rH.collider.gameObject.tag == "Ground"|| rH.collider.gameObject.tag=="Rail")
             {
                  isGrounded =true;
             }

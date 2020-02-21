@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class PickUp : MonoBehaviour
 {
     public bool isGood, speedorSteering = false;
+    [SerializeField] float timePeriod =5f;
     [SerializeField] AudioClip goodPickup, badPickup;
     AudioSource thisAS;
     private float storedSteering, storedMaxSpeed, storedTurning, storedTurningSpeed;
-    [SerializeField] float steerAdjustment, speedAdjustment, turningAdjustment, turnSpeedAdjustment;
+    [SerializeField] float steerAdjustment, speedAdjustment, badSpeedAdjustment, turningAdjustment, turnSpeedAdjustment;
     [SerializeField] Sprite badSteerSprite, goodSteerSprite, badSpeedSprite, goodSpeedSprite;
     // Start is called before the first frame update
     private void Awake()
@@ -38,7 +39,7 @@ public class PickUp : MonoBehaviour
                     pM.powerUpImage.sprite = goodSpeedSprite;
                     pM.maxSpeed = speedAdjustment;
                     rB.AddForce(other.gameObject.transform.forward * pM.boostForce / 3, ForceMode.VelocityChange);
-                    StartCoroutine(restoreTime(other.gameObject, true, 10f));
+                    StartCoroutine(restoreTime(other.gameObject, true, timePeriod));
                     thisAS.PlayOneShot(goodPickup);
                 }
                 if (!isGood && speedorSteering)
@@ -46,7 +47,7 @@ public class PickUp : MonoBehaviour
                     pM.isPoweredUp = true;
                     pM.powerUpImage.sprite = badSpeedSprite;
                     pM.maxSpeed = speedAdjustment;
-                    StartCoroutine(restoreTime(other.gameObject, true, 10f));
+                    StartCoroutine(restoreTime(other.gameObject, true, timePeriod));
                     thisAS.PlayOneShot(badPickup);
                 }
                 if (isGood && !speedorSteering)
@@ -56,7 +57,7 @@ public class PickUp : MonoBehaviour
                     pM.steeringScaler = steerAdjustment;
                     pM.turnScaler = turningAdjustment;
                     pM.turnSpeed = turnSpeedAdjustment;
-                    StartCoroutine(restoreTime(other.gameObject, false, 10f));
+                    StartCoroutine(restoreTime(other.gameObject, false, timePeriod));
                     thisAS.PlayOneShot(goodPickup);
                 }
                 if (!isGood && !speedorSteering)
@@ -66,11 +67,11 @@ public class PickUp : MonoBehaviour
                     pM.steeringScaler = steerAdjustment;
                     pM.turnScaler = turningAdjustment;
                     pM.turnSpeed = turnSpeedAdjustment;
-                    StartCoroutine(restoreTime(other.gameObject, false, 10f));
+                    StartCoroutine(restoreTime(other.gameObject, false, timePeriod));
                     thisAS.PlayOneShot(badPickup);
                 }
                 this.gameObject.GetComponent<SphereCollider>().enabled = false;
-                this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                this.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
             }
         }
     }

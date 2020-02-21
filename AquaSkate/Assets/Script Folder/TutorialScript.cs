@@ -15,7 +15,7 @@ public class TutorialScript : MonoBehaviour
     {
         if(Input.GetButtonDown("Cancel"))
         {
-            SceneManager.LoadScene("Tutorial");
+           // SceneManager.LoadScene("Tutorial");
         }
 
         if(Input.GetButtonDown("Select"))
@@ -43,7 +43,7 @@ public class TutorialScript : MonoBehaviour
 
         if(Input.GetButtonDown("Pause"))
         {
-            SceneManager.LoadScene("Menu");
+            //SceneManager.LoadScene("Menu");
         }
     }
 }
