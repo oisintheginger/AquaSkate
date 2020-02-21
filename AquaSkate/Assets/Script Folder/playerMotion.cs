@@ -118,7 +118,7 @@ public class playerMotion : MonoBehaviour
        
         if (Input.GetButtonDown(accelerateAxis)&&isGrounded)
         {
-            pRB.AddForce((transform.forward ) * accelerationForce *  Mathf.Max(0, Input.GetAxis(verticalAxis)), ForceMode.VelocityChange);
+            pRB.AddForce((transform.forward ) * accelerationForce * Input.GetAxis(verticalAxis)/* Mathf.Max(0, Input.GetAxis(verticalAxis))*/, ForceMode.VelocityChange);
             
         }
         if (xZPlaneSpeed >= maxSpeed)
@@ -136,8 +136,10 @@ public class playerMotion : MonoBehaviour
             pRB.AddForce(transform.up * jumpForce,ForceMode.VelocityChange);
         }
 
-        pRB.velocity = Vector3.Lerp(pRB.velocity, transform.forward * xZPlaneSpeed, steeringScaler * Time.deltaTime);
-
+        if (0.3f < xZPlaneSpeed / maxSpeed)
+        {
+            pRB.velocity = Vector3.Lerp(pRB.velocity, transform.forward * xZPlaneSpeed, steeringScaler * Time.deltaTime);
+        }
         ScaleAccelerometer(xZPlaneSpeed, maxSpeed);
     }
 
